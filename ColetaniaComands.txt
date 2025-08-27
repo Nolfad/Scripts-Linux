@@ -3,3 +3,21 @@
 
 #coloca a linguagem correta para o flatpak
 flatpak config --set languages "br;pt;en"
+
+#corretor ortografico do sistema
+1) Dicionários do sistema (Hunspell)
+
+No Kubuntu, o backend padrão é Hunspell. Instale os pacotes dos idiomas que você usa:
+
+sudo apt update
+sudo apt install -y hunspell-pt-br hunspell-en-us
+
+
+(adicione outros, ex.: hunspell-es, hunspell-fr, etc.)
+
+2) KDE Plasma (vale para apps KDE: Kate, KWrite, KMail, etc.)
+
+Configurações do Sistema → Regional → Ortografia (Spell Check)
+Escolha Hunspell e marque os idiomas (pt-BR, en-US…).
+
+Em cada app KDE: Preferências → Ortografia (ou no campo de texto → clique direito → Ortografia) e selecione o idioma.

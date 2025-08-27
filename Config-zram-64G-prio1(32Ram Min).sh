@@ -65,6 +65,8 @@ if grep -qE '^\s*/swapfile\s' /etc/fstab; then
   sudo mv /etc/fstab.tmp /etc/fstab
 fi
 
+sudo systemctl restart zramswap
+
 echo "== 7) Status final =="
 echo "-- swapon --show=NAME,PRIO,TYPE,SIZE,USED --"
 swapon --show=NAME,PRIO,TYPE,SIZE,USED

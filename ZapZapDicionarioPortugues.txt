@@ -1,0 +1,10 @@
+ 
+#Baixe o arquivo codificado,
+wget -O pt-BR.bdic.base64 "https://chromium.googlesource.com/chromium/deps/hunspell_dictionaries/+/refs/heads/main/pt-BR-3-0.bdic?format=TEXT"
+
+#Decodifique o arquivo
+base64 -d pt-BR.bdic.base64 > pt-BR.bdic
+
+mkdir -p ~/.var/app/com.rtosta.zapzap/config/qtwebengine_dictionaries
+mv pt-BR.bdic ~/.var/app/com.rtosta.zapzap/config/qtwebengine_dictionaries/
+#apontar a na config do app o local ~/.var/app/com.rtosta.zapzap/config/qtwebengine_dictionaries/

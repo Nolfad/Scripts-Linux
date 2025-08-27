@@ -1,1 +1,5 @@
+#Monitorar ram e swap
  watch -n 2 'echo "=== $(date) ==="; free -h; echo; echo "-- ZRAM --"; zramctl; echo; echo "-- SWAP (todas) --"; swapon --show=NAME,PRIO,TYPE,SIZE,USED'
+
+#coloca a linguagem correta para o flatpak
+flatpak config --set languages "br;pt;en"

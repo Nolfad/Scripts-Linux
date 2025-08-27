@@ -1,4 +1,6 @@
- 
+sudo apt update
+sudo apt install hunspell git
+
 #Baixe o arquivo codificado,
 wget -O pt-BR.bdic.base64 "https://chromium.googlesource.com/chromium/deps/hunspell_dictionaries/+/refs/heads/main/pt-BR-3-0.bdic?format=TEXT"
 

@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ===== parte configuravel =====
+# ===== AJUSTE AQUI se precisar =====
 LIBRARY_PATH="/mnt/m2/SteamLibrary"     # sua SteamLibrary
 APPID=3792580                           # SCUM Dedicated Server
 SCHEDULE=("00:00" "06:00" "14:00")      # horários de restart (HH:MM 24h)
 LOGDIR="$HOME/scum"
 LOGFILE="$LOGDIR/scum-server.log"
-SIGINT_TIMEOUT="${SIGINT_TIMEOUT:-15}"   # seg. para aguardar após SIGINT (Ctrl-C)
-WINESERVER_TIMEOUT="${WINESERVER_TIMEOUT:-30}"   # seg. para aguardar após wineserver -k
 # ===================================
 
 cd "$HOME"
@@ -95,23 +93,13 @@ start_server() {
 stop_server() {
   echo "[$(ts)] Parando SCUM..." | tee -a "$LOGFILE"
 
-    # 0) tenta SIGINT no grupo (equivalente a Ctrl-C)
-  if [[ -n "${server_pgid:-}" ]] && ps -p "$server_pid" >/dev/null 2>&1; then
-    echo "[$(ts)] kill -INT -$server_pgid (Ctrl-C equivalente)" | tee -a "$LOGFILE"
-    kill -INT "-$server_pgid" 2>/dev/null || true
-    for _ in $(seq 1 $SIGINT_TIMEOUT); do
-      ps -p "$server_pid" >/dev/null 2>&1 || { echo "[$(ts)] Encerrado via SIGINT."; return 0; }
-      sleep 1
-    done
-  fi
-
   # 1) tenta limpar pelo wineserver (se achamos o bin)
   if [[ -n "${WINESERVER:-}" && -x "$WINESERVER" ]]; then
     echo "[$(ts)] wineserver -k (prefix=$WINEPREFIX)" | tee -a "$LOGFILE"
     WINEPREFIX="$WINEPREFIX" "$WINESERVER" -k || true
 
     # espera até 30s o fim do wineserver/clients
-    for _ in $(seq 1 $SIGINT_TIMEOUT); do
+    for _ in $(seq 1 30); do
       # quando todos processos wine do prefix saem, o wineserver também cai
       if ! pgrep -u "$USER" -f "$WINEPREFIX" >/dev/null 2>&1; then
         break

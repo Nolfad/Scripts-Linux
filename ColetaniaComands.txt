@@ -21,3 +21,15 @@ Configurações do Sistema → Regional → Ortografia (Spell Check)
 Escolha Hunspell e marque os idiomas (pt-BR, en-US…).
 
 Em cada app KDE: Preferências → Ortografia (ou no campo de texto → clique direito → Ortografia) e selecione o idioma.
+
+
+
+
+Aqui vai um único comando para bloquear todo o tráfego do IP
+sudo iptables -I INPUT -s 125.141.123.152 -j DROP
+
+Verificar se entrou: sudo iptables -S INPUT | grep 125.141.123.152
+Remover (se precisar): sudo iptables -D INPUT -s 125.141.123.152 -j DROP
+
+Se preferir bloquear apenas o SCUM (udp/7042) em vez de tudo:
+sudo iptables -I INPUT -p udp --dport 7042 -s 125.141.123.152 -j DROP

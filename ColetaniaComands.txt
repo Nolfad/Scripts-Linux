@@ -23,6 +23,12 @@ Escolha Hunspell e marque os idiomas (pt-BR, en-US…).
 Em cada app KDE: Preferências → Ortografia (ou no campo de texto → clique direito → Ortografia) e selecione o idioma.
 
 
+#ativar nftables
+sudo systemctl enable --now nftables
+
+#recarregar nftables
+sudo nft -f /etc/nftables.conf
+sudo nft list ruleset
 
 
 Aqui vai um único comando para bloquear todo o tráfego do IP
@@ -33,3 +39,10 @@ Remover (se precisar): sudo iptables -D INPUT -s 125.141.123.152 -j DROP
 
 Se preferir bloquear apenas o SCUM (udp/7042) em vez de tudo:
 sudo iptables -I INPUT -p udp --dport 7042 -s 125.141.123.152 -j DROP
+
+#adiciona cron
+sudo crontab -e
+
+#roda uma vez por mes
+30 4 1 * * /usr/local/sbin/update-geo-block.sh >> /var/log/update-geo-block.log 2>&1
+
